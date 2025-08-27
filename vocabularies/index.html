@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <!-- **重要**: 這是讓網頁在手機上正確縮放的關鍵 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>國中進階英文單字表</title>
     <!-- 引入 Tailwind CSS -->
@@ -413,6 +414,7 @@
                 const tableContainer = document.createElement('div');
                 tableContainer.className = 'bg-white rounded-xl shadow-lg overflow-hidden';
                 
+                // **手機版優化**: 這個 div 會讓寬度過長的表格可以水平滑動
                 const tableWrapper = document.createElement('div');
                 tableWrapper.className = 'overflow-x-auto';
 
@@ -457,7 +459,9 @@
                 });
 
                 table.appendChild(tableBody);
+                // 將表格放入可滑動的包裝 div 中
                 tableWrapper.appendChild(table);
+                // 再將包裝 div 放入主要的容器
                 tableContainer.appendChild(tableWrapper);
                 contentContainer.appendChild(tableContainer);
 
