@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國中進階英文單字表</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* 使用 Inter 和 Noto Sans TC 字體 */
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">國中進階英文單字 (300字)</h1>
+            <p class="text-md text-gray-600 mt-2">點擊喇叭圖示即可聆聽發音</p>
+        </header>
+
+        <!-- 動態內容容器 -->
+        <div id="content-container" class="space-y-12">
+            <!-- JavaScript 將會在這裡動態生成所有內容 -->
+        </div>
+
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2024 英文單字學習網站. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- 資料定義 ---
+        // 定義300個進階英文單字
+        const vocabularyList = [
+            // 1-15
+            { word: 'achieve', explanation: '達成；實現', sentence: 'You can achieve anything if you work hard.', ipa: '/əˈtʃiːv/' },
+            { word: 'ancient', explanation: '古代的', sentence: 'We visited the ancient ruins in Greece.', ipa: '/ˈeɪn.ʃənt/' },
+            { word: 'arrange', explanation: '安排；整理', sentence: 'Please arrange the books on the shelf.', ipa: '/əˈreɪndʒ/' },
+            { word: 'benefit', explanation: '好處；利益', sentence: 'Exercise has many benefits for your health.', ipa: '/ˈben.ə.fɪt/' },
+            { word: 'brilliant', explanation: '傑出的；明亮的', sentence: 'She had a brilliant idea for the project.', ipa: '/ˈbrɪl.jənt/' },
+            { word: 'challenge', explanation: '挑戰', sentence: 'Climbing the mountain was a big challenge.', ipa: '/ˈtʃæl.ɪndʒ/' },
+            { word: 'communicate', explanation: '溝通', sentence: 'It is important to communicate with your team.', ipa: '/kəˈmjuː.nə.keɪt/' },
+            { word: 'create', explanation: '創造', sentence: 'He likes to create stories and characters.', ipa: '/kriˈeɪt/' },
+            { word: 'curious', explanation: '好奇的', sentence: 'The cat was curious about the new toy.', ipa: '/ˈkjʊr.i.əs/' },
+            { word: 'decision', explanation: '決定', sentence: 'It was a difficult decision to make.', ipa: '/dɪˈsɪʒ.ən/' },
+            { word: 'develop', explanation: '發展；開發', sentence: 'The city continues to develop and grow.', ipa: '/dɪˈvel.əp/' },
+            { word: 'discover', explanation: '發現', sentence: 'They hope to discover a new planet.', ipa: '/dɪˈskʌv.ɚ/' },
+            { word: 'environment', explanation: '環境', sentence: 'We must protect the natural environment.', ipa: '/ɪnˈvaɪ.rən.mənt/' },
+            { word: 'essential', explanation: '必要的；本質的', sentence: 'Water is essential for life.', ipa: '/ɪˈsen.ʃəl/' },
+            { word: 'explore', explanation: '探索', sentence: 'Let\'s explore the forest this weekend.', ipa: '/ɪkˈsplɔːr/' },
+            // 16-30
+            { word: 'familiar', explanation: '熟悉的', sentence: 'His face looks familiar to me.', ipa: '/fəˈmɪl.jɚ/' },
+            { word: 'generous', explanation: '慷慨的', sentence: 'He is very generous with his time and money.', ipa: '/ˈdʒen.ər.əs/' },
+            { word: 'government', explanation: '政府', sentence: 'The government announced a new policy.', ipa: '/ˈɡʌv.ɚn.mənt/' },
+            { word: 'however', explanation: '然而', sentence: 'He was tired; however, he kept working.', ipa: '/haʊˈev.ɚ/' },
+            { word: 'imagine', explanation: '想像', sentence: 'Can you imagine a world without music?', ipa: '/ɪˈmædʒ.ɪn/' },
+            { word: 'increase', explanation: '增加', sentence: 'The price of gas continues to increase.', ipa: '/ɪnˈkriːs/' },
+            { word: 'influence', explanation: '影響', sentence: 'Her parents have a strong influence on her.', ipa: '/ˈɪn.flu.əns/' },
+            { word: 'knowledge', explanation: '知識', sentence: 'Reading books can increase your knowledge.', ipa: '/ˈnɑː.lɪdʒ/' },
+            { word: 'local', explanation: '當地的', sentence: 'We love to eat at local restaurants.', ipa: '/ˈloʊ.kəl/' },
+            { word: 'measure', explanation: '測量', sentence: 'We need to measure the size of the room.', ipa: '/ˈmeʒ.ɚ/' },
+            { word: 'necessary', explanation: '必須的', sentence: 'Is it necessary to finish this today?', ipa: '/ˈnes.ə.ser.i/' },
+            { word: 'observe', explanation: '觀察', sentence: 'Scientists observe the stars with telescopes.', ipa: '/əbˈzɝːv/' },
+            { word: 'opportunity', explanation: '機會', sentence: 'This is a great opportunity for you.', ipa: '/ˌɑː.pɚˈtuː.nə.t̬i/' },
+            { word: 'particular', explanation: '特別的；特定的', sentence: 'Is there a particular color you like?', ipa: '/pɚˈtɪk.jə.lɚ/' },
+            { word: 'popular', explanation: '受歡迎的', sentence: 'This song is very popular among teenagers.', ipa: '/ˈpɑː.pjə.lɚ/' },
+            // 31-45
+            { word: 'prepare', explanation: '準備', sentence: 'She is preparing for her final exams.', ipa: '/prɪˈper/' },
+            { word: 'protect', explanation: '保護', sentence: 'We should protect endangered animals.', ipa: '/prəˈtekt/' },
+            { word: 'provide', explanation: '提供', sentence: 'The hotel provides free breakfast.', ipa: '/prəˈvaɪd/' },
+            { word: 'quality', explanation: '品質', sentence: 'This brand is known for its high quality.', ipa: '/ˈkwɑː.lə.t̬i/' },
+            { word: 'realize', explanation: '意識到；實現', sentence: 'I didn\'t realize you were here.', ipa: '/ˈriː.ə.laɪz/' },
+            { word: 'receive', explanation: '收到', sentence: 'Did you receive my email?', ipa: '/rɪˈsiːv/' },
+            { word: 'recommend', explanation: '推薦', sentence: 'Can you recommend a good book?', ipa: '/ˌrek.əˈmend/' },
+            { word: 'reduce', explanation: '減少', sentence: 'We need to reduce waste to save the planet.', ipa: '/rɪˈduːs/' },
+            { word: 'relationship', explanation: '關係', sentence: 'They have a very close relationship.', ipa: '/rɪˈleɪ.ʃən.ʃɪp/' },
+            { word: 'require', explanation: '要求', sentence: 'This job requires a lot of travel.', ipa: '/rɪˈkwaɪr/' },
+            { word: 'research', explanation: '研究', sentence: 'He is doing research on climate change.', ipa: '/ˈriː.sɝːtʃ/' },
+            { word: 'responsible', explanation: '負責任的', sentence: 'You are responsible for your own actions.', ipa: '/rɪˈspɑːn.sə.bəl/' },
+            { word: 'result', explanation: '結果', sentence: 'What was the result of the experiment?', ipa: '/rɪˈzʌlt/' },
+            { word: 'several', explanation: '幾個', sentence: 'I have visited that city several times.', ipa: '/ˈsev.rəl/' },
+            { word: 'similar', explanation: '相似的', sentence: 'My sister and I have similar tastes in music.', ipa: '/ˈsɪm.ə.lɚ/' },
+            // 46-60
+            { word: 'situation', explanation: '情況；處境', sentence: 'We are in a difficult situation.', ipa: '/ˌsɪtʃ.uˈeɪ.ʃən/' },
+            { word: 'society', explanation: '社會', sentence: 'Technology has changed modern society.', ipa: '/səˈsaɪ.ə.t̬i/' },
+            { word: 'suggest', explanation: '建議', sentence: 'I suggest you take a short break.', ipa: '/səˈdʒest/' },
+            { word: 'support', explanation: '支持', sentence: 'My family always supports my dreams.', ipa: '/səˈpɔːrt/' },
+            { word: 'technology', explanation: '科技', sentence: 'New technology makes life easier.', ipa: '/tekˈnɑː.lə.dʒi/' },
+            { word: 'though', explanation: '雖然', sentence: 'Though it was raining, we went for a walk.', ipa: '/ðoʊ/' },
+            { word: 'tradition', explanation: '傳統', sentence: 'It is a family tradition to eat together on Sundays.', ipa: '/trəˈdɪʃ.ən/' },
+            { word: 'understand', explanation: '理解', sentence: 'I don\'t understand this question.', ipa: '/ˌʌn.dɚˈstænd/' },
+            { word: 'valuable', explanation: '有價值的', sentence: 'Time is the most valuable thing we have.', ipa: '/ˈvæl.jə.bəl/' },
+            { word: 'various', explanation: '各種各樣的', sentence: 'The store sells various kinds of cheese.', ipa: '/ˈver.i.əs/' },
+            { word: 'whole', explanation: '整個的', sentence: 'He ate the whole pizza by himself.', ipa: '/hoʊl/' },
+            { word: 'ability', explanation: '能力', sentence: 'She has the ability to solve complex problems.', ipa: '/əˈbɪl.ə.t̬i/' },
+            { word: 'abroad', explanation: '在國外', sentence: 'He is currently studying abroad.', ipa: '/əˈbrɔːd/' },
+            { word: 'accept', explanation: '接受', sentence: 'Please accept my apology.', ipa: '/əkˈsept/' },
+            { word: 'according to', explanation: '根據', sentence: 'According to the weather forecast, it will rain.', ipa: '/əˈkɔːr.dɪŋ tuː/' },
+            // 61-75
+            { word: 'action', explanation: '行動', sentence: 'Actions speak louder than words.', ipa: '/ˈæk.ʃən/' },
+            { word: 'activity', explanation: '活動', sentence: 'There are many activities to do at the park.', ipa: '/ækˈtɪv.ə.t̬i/' },
+            { word: 'actually', explanation: '實際上', sentence: 'He looks young, but he is actually over 40.', ipa: '/ˈæk.tʃu.ə.li/' },
+            { word: 'adult', explanation: '成人', sentence: 'You need an adult to sign this form.', ipa: '/əˈdʌlt/' },
+            { word: 'advantage', explanation: '優勢', sentence: 'Being tall is an advantage in basketball.', ipa: '/ədˈvæn.t̬ɪdʒ/' },
+            { word: 'adventure', explanation: '冒險', sentence: 'Life is an exciting adventure.', ipa: '/ədˈven.tʃɚ/' },
+            { word: 'advice', explanation: '建議', sentence: 'Can you give me some advice?', ipa: '/ədˈvaɪs/' },
+            { word: 'affect', explanation: '影響', sentence: 'The weather can affect your mood.', ipa: '/əˈfekt/' },
+            { word: 'agree', explanation: '同意', sentence: 'I agree with your opinion.', ipa: '/əˈɡriː/' },
+            { word: 'allow', explanation: '允許', sentence: 'My parents don\'t allow me to stay out late.', ipa: '/əˈlaʊ/' },
+            { word: 'although', explanation: '雖然', sentence: 'Although it was cold, he went swimming.', ipa: '/ɔːlˈðoʊ/' },
+            { word: 'amount', explanation: '數量', sentence: 'A large amount of money was stolen.', ipa: '/əˈmaʊnt/' },
+            { word: 'another', explanation: '另一個', sentence: 'Can I have another piece of cake?', ipa: '/əˈnʌð.ɚ/' },
+            { word: 'appear', explanation: '出現', sentence: 'A rabbit suddenly appeared from the hat.', ipa: '/əˈpɪr/' },
+            { word: 'area', explanation: '地區；領域', sentence: 'This is a residential area.', ipa: '/ˈer.i.ə/' },
+            // 76-90
+            { word: 'argue', explanation: '爭論', sentence: 'They always argue about money.', ipa: '/ˈɑːrɡ.juː/' },
+            { word: 'artist', explanation: '藝術家', sentence: 'She is a talented artist.', ipa: '/ˈɑːr.t̬ɪst/' },
+            { word: 'attack', explanation: '攻擊', sentence: 'The army prepared for an attack.', ipa: '/əˈtæk/' },
+            { word: 'attention', explanation: '注意', sentence: 'Please pay attention in class.', ipa: '/əˈten.ʃən/' },
+            { word: 'attitude', explanation: '態度', sentence: 'He has a positive attitude towards life.', ipa: '/ˈæt̬.ə.tuːd/' },
+            { word: 'average', explanation: '平均的', sentence: 'The average temperature in summer is 30 degrees.', ipa: '/ˈæv.ɚ.ɪdʒ/' },
+            { word: 'avoid', explanation: '避免', sentence: 'You should avoid eating junk food.', ipa: '/əˈvɔɪd/' },
+            { word: 'award', explanation: '獎項', sentence: 'She won an award for her performance.', ipa: '/əˈwɔːrd/' },
+            { word: 'aware', explanation: '意識到的', sentence: 'Are you aware of the risks?', ipa: '/əˈwer/' },
+            { word: 'balance', explanation: '平衡', sentence: 'It\'s important to have a balance between work and life.', ipa: '/ˈbæl.əns/' },
+            { word: 'basic', explanation: '基本的', sentence: 'We learned the basic rules of the game.', ipa: '/ˈbeɪ.sɪk/' },
+            { word: 'behavior', explanation: '行為', sentence: 'His behavior at the party was unacceptable.', ipa: '/bɪˈheɪ.vjɚ/' },
+            { word: 'believe', explanation: '相信', sentence: 'I believe that anything is possible.', ipa: '/bɪˈliːv/' },
+            { word: 'belong', explanation: '屬於', sentence: 'This book belongs to me.', ipa: '/bɪˈlɔːŋ/' },
+            { word: 'blood', explanation: '血液', sentence: 'He lost a lot of blood in the accident.', ipa: '/blʌd/' },
+            // 91-105
+            { word: 'brain', explanation: '大腦', sentence: 'The brain is the most complex organ.', ipa: '/breɪn/' },
+            { word: 'build', explanation: '建造', sentence: 'They plan to build a new bridge.', ipa: '/bɪld/' },
+            { word: 'business', explanation: '生意；商業', sentence: 'He started his own business last year.', ipa: '/ˈbɪz.nɪs/' },
+            { word: 'cause', explanation: '原因；引起', sentence: 'What was the cause of the fire?', ipa: '/kɔːz/' },
+            { word: 'celebrate', explanation: '慶祝', sentence: 'How do you celebrate New Year?', ipa: '/ˈsel.ə.breɪt/' },
+            { word: 'century', explanation: '世紀', sentence: 'We are living in the 21st century.', ipa: '/ˈsen.tʃər.i/' },
+            { word: 'certain', explanation: '確定的', sentence: 'I am certain that he is telling the truth.', ipa: '/ˈsɝː.tən/' },
+            { word: 'chance', explanation: '機會', sentence: 'This is your last chance.', ipa: '/tʃæns/' },
+            { word: 'character', explanation: '性格；角色', sentence: 'He has a very strong character.', ipa: '/ˈker.ək.tɚ/' },
+            { word: 'charge', explanation: '收費；充電', sentence: 'How much do you charge for a haircut?', ipa: '/tʃɑːrdʒ/' },
+            { word: 'choice', explanation: '選擇', sentence: 'You have no choice in this matter.', ipa: '/tʃɔɪs/' },
+            { word: 'citizen', explanation: '公民', sentence: 'He is a citizen of the United States.', ipa: '/ˈsɪt̬.ə.zən/' },
+            { word: 'climate', explanation: '氣候', sentence: 'The climate is changing rapidly.', ipa: '/ˈklaɪ.mət/' },
+            { word: 'collect', explanation: '收集', sentence: 'I like to collect stamps.', ipa: '/kəˈlekt/' },
+            { word: 'college', explanation: '大學', sentence: 'She is studying history at college.', ipa: '/ˈkɑː.lɪdʒ/' },
+            // 106-120
+            { word: 'common', explanation: '常見的；共同的', sentence: 'It is a common mistake.', ipa: '/ˈkɑː.mən/' },
+            { word: 'community', explanation: '社區', sentence: 'He is an active member of the community.', ipa: '/kəˈmjuː.nə.t̬i/' },
+            { word: 'compare', explanation: '比較', sentence: 'Don\'t compare yourself with others.', ipa: '/kəmˈper/' },
+            { word: 'complain', explanation: '抱怨', sentence: 'He is always complaining about the weather.', ipa: '/kəmˈpleɪn/' },
+            { word: 'complete', explanation: '完成；完整的', sentence: 'Please complete this form.', ipa: '/kəmˈpliːt/' },
+            { word: 'concern', explanation: '關心；擔憂', sentence: 'Her main concern is her children\'s safety.', ipa: '/kənˈsɝːn/' },
+            { word: 'condition', explanation: '狀況；條件', sentence: 'The car is in good condition.', ipa: '/kənˈdɪʃ.ən/' },
+            { word: 'connect', explanation: '連接', sentence: 'The bridge connects the two islands.', ipa: '/kəˈnekt/' },
+            { word: 'consider', explanation: '考慮', sentence: 'You should consider all the options.', ipa: '/kənˈsɪd.ɚ/' },
+            { word: 'contain', explanation: '包含', sentence: 'This box contains old photos.', ipa: '/kənˈteɪn/' },
+            { word: 'continue', explanation: '繼續', sentence: 'Please continue with your story.', ipa: '/kənˈtɪn.juː/' },
+            { word: 'control', explanation: '控制', sentence: 'He lost control of the car.', ipa: '/kənˈtroʊl/' },
+            { word: 'cost', explanation: '花費；成本', sentence: 'How much does this book cost?', ipa: '/kɔːst/' },
+            { word: 'couple', explanation: '一對；幾個', sentence: 'A young couple was walking in the park.', ipa: '/ˈkʌp.əl/' },
+            { word: 'course', explanation: '課程；路線', sentence: 'I am taking a course in photography.', ipa: '/kɔːrs/' },
+            // 121-135
+            { word: 'culture', explanation: '文化', sentence: 'I am interested in learning about different cultures.', ipa: '/ˈkʌl.tʃɚ/' },
+            { word: 'damage', explanation: '損害', sentence: 'The storm caused a lot of damage.', ipa: '/ˈdæm.ɪdʒ/' },
+            { word: 'danger', explanation: '危險', sentence: 'You are in great danger.', ipa: '/ˈdeɪn.dʒɚ/' },
+            { word: 'deal', explanation: '處理；交易', sentence: 'How do you deal with stress?', ipa: '/diːl/' },
+            { word: 'death', explanation: '死亡', sentence: 'His sudden death was a shock to everyone.', ipa: '/deθ/' },
+            { word: 'debate', explanation: '辯論', sentence: 'There was a heated debate about the new law.', ipa: '/dɪˈbeɪt/' },
+            { word: 'degree', explanation: '度；學位', sentence: 'She has a degree in chemistry.', ipa: '/dɪˈɡriː/' },
+            { word: 'depend', explanation: '依賴；取決於', sentence: 'It depends on the weather.', ipa: '/dɪˈpend/' },
+            { word: 'describe', explanation: '描述', sentence: 'Can you describe the man you saw?', ipa: '/dɪˈskraɪb/' },
+            { word: 'design', explanation: '設計', sentence: 'She works in fashion design.', ipa: '/dɪˈzaɪn/' },
+            { word: 'destroy', explanation: '破壞', sentence: 'The building was destroyed by fire.', ipa: '/dɪˈstrɔɪ/' },
+            { word: 'detail', explanation: '細節', sentence: 'Pay attention to the details.', ipa: '/ˈdiː.teɪl/' },
+            { word: 'difficult', explanation: '困難的', sentence: 'This is a very difficult question.', ipa: '/ˈdɪf.ə.kəlt/' },
+            { word: 'direct', explanation: '直接的；指導', sentence: 'Is there a direct train to the airport?', ipa: '/daɪˈrekt/' },
+            { word: 'disease', explanation: '疾病', sentence: 'He is suffering from a rare disease.', ipa: '/dɪˈziːz/' },
+            // 136-150
+            { word: 'distance', explanation: '距離', sentence: 'What is the distance between the two cities?', ipa: '/ˈdɪs.təns/' },
+            { word: 'dream', explanation: '夢想', sentence: 'I had a strange dream last night.', ipa: '/driːm/' },
+            { word: 'dress', explanation: '洋裝；穿衣', sentence: 'She wore a beautiful red dress.', ipa: '/dres/' },
+            { word: 'during', explanation: '在...期間', sentence: 'He fell asleep during the movie.', ipa: '/ˈdʊr.ɪŋ/' },
+            { word: 'earth', explanation: '地球；土地', sentence: 'The Earth revolves around the Sun.', ipa: '/ɝːθ/' },
+            { word: 'effort', explanation: '努力', sentence: 'You need to make more effort.', ipa: '/ˈef.ɚt/' },
+            { word: 'either', explanation: '兩者之一', sentence: 'You can have either tea or coffee.', ipa: '/ˈiː.ðɚ/' },
+            { word: 'elect', explanation: '選舉', sentence: 'They will elect a new president next year.', ipa: '/iˈlekt/' },
+            { word: 'emotion', explanation: '情緒', sentence: 'He has difficulty expressing his emotions.', ipa: '/ɪˈmoʊ.ʃən/' },
+            { word: 'encourage', explanation: '鼓勵', sentence: 'My parents always encourage me to try new things.', ipa: '/ɪnˈkɝː.ɪdʒ/' },
+            { word: 'engine', explanation: '引擎', sentence: 'There is something wrong with the car engine.', ipa: '/ˈen.dʒɪn/' },
+            { word: 'enjoy', explanation: '享受', sentence: 'I really enjoy reading.', ipa: '/ɪnˈdʒɔɪ/' },
+            { word: 'enough', explanation: '足夠的', sentence: 'Do we have enough food for everyone?', ipa: '/ɪˈnʌf/' },
+            { word: 'enter', explanation: '進入', sentence: 'Please enter your password.', ipa: '/ˈen.t̬ɚ/' },
+            { word: 'especially', explanation: '尤其', sentence: 'I love ice cream, especially chocolate flavor.', ipa: '/ɪˈspeʃ.ə.li/' },
+            // 151-165
+            { word: 'event', explanation: '事件', sentence: 'The wedding was a big event.', ipa: '/ɪˈvent/' },
+            { word: 'exactly', explanation: '確切地', sentence: 'That is exactly what I mean.', ipa: '/ɪɡˈzækt.li/' },
+            { word: 'except', explanation: '除了', sentence: 'Everyone is here except John.', ipa: '/ɪkˈsept/' },
+            { word: 'excite', explanation: '使興奮', sentence: 'The news excited everyone.', ipa: '/ɪkˈsaɪt/' },
+            { word: 'exist', explanation: '存在', sentence: 'Do you believe that ghosts exist?', ipa: '/ɪɡˈzɪst/' },
+            { word: 'expect', explanation: '期望', sentence: 'I expect to see you there.', ipa: '/ɪkˈspekt/' },
+            { word: 'experience', explanation: '經驗', sentence: 'He has a lot of experience in teaching.', ipa: '/ɪkˈspɪr.i.əns/' },
+            { word: 'explain', explanation: '解釋', sentence: 'Can you explain this rule to me?', ipa: '/ɪkˈspleɪn/' },
+            { word: 'express', explanation: '表達', sentence: 'She finds it hard to express her feelings.', ipa: '/ɪkˈspres/' },
+            { word: 'fact', explanation: '事實', sentence: 'It is a fact that the world is round.', ipa: '/fækt/' },
+            { word: 'fail', explanation: '失敗', sentence: 'He failed his driving test.', ipa: '/feɪl/' },
+            { word: 'famous', explanation: '著名的', sentence: 'She is a famous actress.', ipa: '/ˈfeɪ.məs/' },
+            { word: 'fear', explanation: '害怕', sentence: 'He has a fear of heights.', ipa: '/fɪr/' },
+            { word: 'figure', explanation: '數字；人物', sentence: 'The unemployment figure is rising.', ipa: '/ˈfɪɡ.jɚ/' },
+            { word: 'final', explanation: '最後的', sentence: 'This is the final chapter of the book.', ipa: '/ˈfaɪ.nəl/' },
+            // 166-180
+            { word: 'foreign', explanation: '外國的', sentence: 'She speaks several foreign languages.', ipa: '/ˈfɔːr.ən/' },
+            { word: 'forest', explanation: '森林', sentence: 'They got lost in the forest.', ipa: '/ˈfɔːr.ɪst/' },
+            { word: 'forget', explanation: '忘記', sentence: 'Don\'t forget to lock the door.', ipa: '/fɚˈɡet/' },
+            { word: 'form', explanation: '形式；表格', sentence: 'Water can exist in three forms.', ipa: '/fɔːrm/' },
+            { word: 'freedom', explanation: '自由', sentence: 'Everyone has the right to freedom of speech.', ipa: '/ˈfriː.dəm/' },
+            { word: 'frequently', explanation: '頻繁地', sentence: 'We meet frequently to discuss the project.', ipa: '/ˈfriː.kwənt.li/' },
+            { word: 'general', explanation: '一般的；將軍', sentence: 'In general, I agree with you.', ipa: '/ˈdʒen.ər.əl/' },
+            { word: 'goal', explanation: '目標', sentence: 'My goal is to lose 10 kilograms.', ipa: '/ɡoʊl/' },
+            { word: 'grade', explanation: '年級；成績', sentence: 'She is in the third grade.', ipa: '/ɡreɪd/' },
+            { word: 'grow', explanation: '成長；種植', sentence: 'Children grow up so quickly.', ipa: '/ɡroʊ/' },
+            { word: 'guess', explanation: '猜測', sentence: 'Can you guess what is in the box?', ipa: '/ɡes/' },
+            { word: 'guide', explanation: '嚮導；指引', sentence: 'The guide showed us around the city.', ipa: '/ɡaɪd/' },
+            { word: 'habit', explanation: '習慣', sentence: 'Getting up early is a good habit.', ipa: '/ˈhæb.ɪt/' },
+            { word: 'happen', explanation: '發生', sentence: 'What happened to your arm?', ipa: '/ˈhæp.ən/' },
+            { word: 'health', explanation: '健康', sentence: 'Good health is very important.', ipa: '/helθ/' },
+            // 181-195
+            { word: 'history', explanation: '歷史', sentence: 'He is interested in ancient history.', ipa: '/ˈhɪs.t̬ɚ.i/' },
+            { word: 'hope', explanation: '希望', sentence: 'I hope you can come to my party.', ipa: '/hoʊp/' },
+            { word: 'human', explanation: '人類', sentence: 'The human body is amazing.', ipa: '/ˈhjuː.mən/' },
+            { word: 'idea', explanation: '想法', sentence: 'That\'s a great idea!', ipa: '/aɪˈdiː.ə/' },
+            { word: 'ignore', explanation: '忽略', sentence: 'He ignored my advice.', ipa: '/ɪɡˈnɔːr/' },
+            { word: 'image', explanation: '影像；形象', sentence: 'The image on the screen is not clear.', ipa: '/ˈɪm.ɪdʒ/' },
+            { word: 'improve', explanation: '改善', sentence: 'I want to improve my English.', ipa: '/ɪmˈpruːv/' },
+            { word: 'include', explanation: '包含', sentence: 'The price includes breakfast.', ipa: '/ɪnˈkluːd/' },
+            { word: 'industry', explanation: '工業；產業', sentence: 'The tourism industry is very important here.', ipa: '/ˈɪn.də.stri/' },
+            { word: 'information', explanation: '資訊', sentence: 'For more information, please visit our website.', ipa: '/ˌɪn.fɚˈmeɪ.ʃən/' },
+            { word: 'instead', explanation: '代替', sentence: 'I will have tea instead of coffee.', ipa: '/ɪnˈsted/' },
+            { word: 'interest', explanation: '興趣；利息', sentence: 'She has a strong interest in music.', ipa: '/ˈɪn.trəst/' },
+            { word: 'introduce', explanation: '介紹', sentence: 'Let me introduce my friend to you.', ipa: '/ˌɪn.trəˈduːs/' },
+            { word: 'invent', explanation: '發明', sentence: 'Who invented the telephone?', ipa: '/ɪnˈvent/' },
+            { word: 'invite', explanation: '邀請', sentence: 'He invited me to his wedding.', ipa: '/ɪnˈvaɪt/' },
+            // 196-210
+            { word: 'involve', explanation: '涉及；包含', sentence: 'The job involves a lot of travel.', ipa: '/ɪnˈvɑːlv/' },
+            { word: 'island', explanation: '島嶼', sentence: 'They live on a beautiful island.', ipa: '/ˈaɪ.lənd/' },
+            { word: 'issue', explanation: '議題；發行', sentence: 'This is a very important issue.', ipa: '/ˈɪʃ.uː/' },
+            { word: 'join', explanation: '加入', sentence: 'Would you like to join us for dinner?', ipa: '/dʒɔɪn/' },
+            { word: 'judge', explanation: '判斷；法官', sentence: 'Don\'t judge a book by its cover.', ipa: '/dʒʌdʒ/' },
+            { word: 'kill', explanation: '殺', sentence: 'Smoking can kill you.', ipa: '/kɪl/' },
+            { word: 'kind', explanation: '種類；仁慈的', sentence: 'What kind of music do you like?', ipa: '/kaɪnd/' },
+            { word: 'laugh', explanation: '笑', sentence: 'His joke made everyone laugh.', ipa: '/læf/' },
+            { word: 'law', explanation: '法律', sentence: 'Everyone must obey the law.', ipa: '/lɔː/' },
+            { word: 'lead', explanation: '領導；導致', sentence: 'He will lead the team.', ipa: '/liːd/' },
+            { word: 'learn', explanation: '學習', sentence: 'I want to learn how to play the guitar.', ipa: '/lɝːn/' },
+            { word: 'least', explanation: '最少的', sentence: 'He has the least money among us.', ipa: '/liːst/' },
+            { word: 'level', explanation: '水平；等級', sentence: 'The water level is rising.', ipa: '/ˈlev.əl/' },
+            { word: 'library', explanation: '圖書館', sentence: 'I often borrow books from the library.', ipa: '/ˈlaɪ.brer.i/' },
+            { word: 'limit', explanation: '限制', sentence: 'There is a time limit for this task.', ipa: '/ˈlɪm.ɪt/' },
+            // 211-225
+            { word: 'list', explanation: '清單', sentence: 'I made a list of things to buy.', ipa: '/lɪst/' },
+            { word: 'lose', explanation: '失去；輸', sentence: 'Don\'t lose your keys.', ipa: '/luːz/' },
+            { word: 'magic', explanation: '魔法', sentence: 'Do you believe in magic?', ipa: '/ˈmædʒ.ɪk/' },
+            { word: 'main', explanation: '主要的', sentence: 'What is the main idea of this article?', ipa: '/meɪn/' },
+            { word: 'manage', explanation: '管理', sentence: 'She manages a large company.', ipa: '/ˈmæn.ɪdʒ/' },
+            { word: 'market', explanation: '市場', sentence: 'We buy fresh vegetables at the market.', ipa: '/ˈmɑːr.kɪt/' },
+            { word: 'marry', explanation: '結婚', sentence: 'They are going to get married next month.', ipa: '/ˈmer.i/' },
+            { word: 'material', explanation: '材料；物質', sentence: 'This shirt is made of natural materials.', ipa: '/məˈtɪr.i.əl/' },
+            { word: 'matter', explanation: '事情；要緊', sentence: 'It doesn\'t matter what you wear.', ipa: '/ˈmæt̬.ɚ/' },
+            { word: 'meaning', explanation: '意義', sentence: 'What is the meaning of this word?', ipa: '/ˈmiː.nɪŋ/' },
+            { word: 'memory', explanation: '記憶', sentence: 'I have a good memory for faces.', ipa: '/ˈmem.ər.i/' },
+            { word: 'message', explanation: '訊息', sentence: 'I left a message on your phone.', ipa: '/ˈmes.ɪdʒ/' },
+            { word: 'method', explanation: '方法', sentence: 'This is a new method of teaching.', ipa: '/ˈmeθ.əd/' },
+            { word: 'military', explanation: '軍事的', sentence: 'He has a military background.', ipa: '/ˈmɪl.ə.ter.i/' },
+            { word: 'mind', explanation: '心智；介意', sentence: 'Keep your mind on your work.', ipa: '/maɪnd/' },
+            // 226-240
+            { word: 'mistake', explanation: '錯誤', sentence: 'Everyone makes mistakes.', ipa: '/mɪˈsteɪk/' },
+            { word: 'model', explanation: '模型；模特兒', sentence: 'She is a famous fashion model.', ipa: '/ˈmɑː.dəl/' },
+            { word: 'moment', explanation: '片刻', sentence: 'Wait a moment, please.', ipa: '/ˈmoʊ.mənt/' },
+            { word: 'mountain', explanation: '山', sentence: 'We are going to climb the mountain tomorrow.', ipa: '/ˈmaʊn.tən/' },
+            { word: 'movement', explanation: '運動；移動', sentence: 'The animal rights movement is growing.', ipa: '/ˈmuːv.mənt/' },
+            { word: 'nation', explanation: '國家', sentence: 'The whole nation was watching the game.', ipa: '/ˈneɪ.ʃən/' },
+            { word: 'nature', explanation: '自然', sentence: 'I love being in nature.', ipa: '/ˈneɪ.tʃɚ/' },
+            { word: 'nearly', explanation: '幾乎', sentence: 'It is nearly midnight.', ipa: '/ˈnɪr.li/' },
+            { word: 'notice', explanation: '注意；通知', sentence: 'Did you notice what she was wearing?', ipa: '/ˈnoʊ.t̬ɪs/' },
+            { word: 'object', explanation: '物體；反對', sentence: 'What is that strange object in the sky?', ipa: '/ˈɑːb.dʒekt/' },
+            { word: 'offer', explanation: '提供', sentence: 'He offered me a job.', ipa: '/ˈɔː.fɚ/' },
+            { word: 'office', explanation: '辦公室', sentence: 'I will be in my office all day.', ipa: '/ˈɑː.fɪs/' },
+            { word: 'official', explanation: '官方的；官員', sentence: 'This is the official website.', ipa: '/əˈfɪʃ.əl/' },
+            { word: 'operate', explanation: '操作；動手術', sentence: 'The machine is easy to operate.', ipa: '/ˈɑː.pə.reɪt/' },
+            { word: 'opinion', explanation: '意見', sentence: 'What is your opinion on this matter?', ipa: '/əˈpɪn.jən/' },
+            // 241-255
+            { word: 'order', explanation: '順序；命令；點餐', sentence: 'The books are in alphabetical order.', ipa: '/ˈɔːr.dɚ/' },
+            { word: 'organization', explanation: '組織', sentence: 'She works for a non-profit organization.', ipa: '/ˌɔːr.ɡən.əˈzeɪ.ʃən/' },
+            { word: 'original', explanation: '原始的', sentence: 'This is the original painting.', ipa: '/əˈrɪdʒ.ə.nəl/' },
+            { word: 'pain', explanation: '疼痛', sentence: 'I have a pain in my back.', ipa: '/peɪn/' },
+            { word: 'parent', explanation: '父母', sentence: 'My parents live in another city.', ipa: '/ˈper.ənt/' },
+            { word: 'pass', explanation: '通過', sentence: 'Did you pass your exam?', ipa: '/pæs/' },
+            { word: 'patient', explanation: '病人；有耐心的', sentence: 'You need to be patient with children.', ipa: '/ˈpeɪ.ʃənt/' },
+            { word: 'pattern', explanation: '圖案；模式', sentence: 'I like the pattern on your dress.', ipa: '/ˈpæt̬.ɚn/' },
+            { word: 'peace', explanation: '和平', sentence: 'We all hope for world peace.', ipa: '/piːs/' },
+            { word: 'perform', explanation: '表演；執行', sentence: 'The band will perform live tonight.', ipa: '/pɚˈfɔːrm/' },
+            { word: 'perhaps', explanation: '也許', sentence: 'Perhaps we can go tomorrow.', ipa: '/pɚˈhæps/' },
+            { word: 'period', explanation: '期間；句點', sentence: 'The meeting will last for a short period.', ipa: '/ˈpɪr.i.əd/' },
+            { word: 'personal', explanation: '個人的', sentence: 'This is my personal opinion.', ipa: '/ˈpɝː.sən.əl/' },
+            { word: 'photograph', explanation: '照片', sentence: 'Can I take a photograph of you?', ipa: '/ˈfoʊ.t̬ə.ɡræf/' },
+            { word: 'planet', explanation: '行星', sentence: 'Mars is known as the Red Planet.', ipa: '/ˈplæn.ɪt/' },
+            // 256-270
+            { word: 'plant', explanation: '植物；工廠', sentence: 'I bought a new plant for my room.', ipa: '/plænt/' },
+            { word: 'pleasure', explanation: '愉快', sentence: 'It was a pleasure to meet you.', ipa: '/ˈpleʒ.ɚ/' },
+            { word: 'policy', explanation: '政策', sentence: 'What is the company\'s policy on smoking?', ipa: '/ˈpɑː.lə.si/' },
+            { word: 'political', explanation: '政治的', sentence: 'He is not interested in political issues.', ipa: '/pəˈlɪt̬.ə.kəl/' },
+            { word: 'position', explanation: '位置；職位', sentence: 'What is your position in the company?', ipa: '/pəˈzɪʃ.ən/' },
+            { word: 'positive', explanation: '正面的；陽性的', sentence: 'Try to have a positive attitude.', ipa: '/ˈpɑː.zə.t̬ɪv/' },
+            { word: 'possible', explanation: '可能的', sentence: 'Is it possible to finish this by Friday?', ipa: '/ˈpɑː.sə.bəl/' },
+            { word: 'power', explanation: '力量；權力', sentence: 'Knowledge is power.', ipa: '/ˈpaʊ.ɚ/' },
+            { word: 'practice', explanation: '練習', sentence: 'You need more practice.', ipa: '/ˈpræk.tɪs/' },
+            { word: 'pressure', explanation: '壓力', sentence: 'He is under a lot of pressure at work.', ipa: '/ˈpreʃ.ɚ/' },
+            { word: 'prevent', explanation: '預防', sentence: 'How can we prevent accidents?', ipa: '/prɪˈvent/' },
+            { word: 'price', explanation: '價格', sentence: 'The price of houses is going up.', ipa: '/praɪs/' },
+            { word: 'private', explanation: '私人的', sentence: 'This is a private conversation.', ipa: '/ˈpraɪ.vət/' },
+            { word: 'probably', explanation: '大概', sentence: 'It will probably rain tomorrow.', ipa: '/ˈprɑː.bə.bli/' },
+            { word: 'problem', explanation: '問題', sentence: 'What is the biggest problem we face?', ipa: '/ˈprɑː.bləm/' },
+            // 271-285
+            { word: 'process', explanation: '過程', sentence: 'Learning a language is a long process.', ipa: '/ˈprɑː.ses/' },
+            { word: 'produce', explanation: '生產', sentence: 'This factory produces toys.', ipa: '/prəˈduːs/' },
+            { word: 'product', explanation: '產品', sentence: 'They are launching a new product.', ipa: '/ˈprɑː.dʌkt/' },
+            { word: 'program', explanation: '節目；程式', sentence: 'What is your favorite TV program?', ipa: '/ˈproʊ.ɡræm/' },
+            { word: 'progress', explanation: '進步', sentence: 'She has made great progress in her studies.', ipa: '/ˈprɑː.ɡres/' },
+            { word: 'project', explanation: '專案；計畫', sentence: 'We are working on a new project.', ipa: '/ˈprɑː.dʒekt/' },
+            { word: 'promise', explanation: '承諾', sentence: 'You must keep your promise.', ipa: '/ˈprɑː.mɪs/' },
+            { word: 'property', explanation: '財產；特性', sentence: 'This building is private property.', ipa: '/ˈprɑː.pɚ.t̬i/' },
+            { word: 'prove', explanation: '證明', sentence: 'Can you prove that you are innocent?', ipa: '/pruːv/' },
+            { word: 'public', explanation: '公眾的', sentence: 'This park is open to the public.', ipa: '/ˈpʌb.lɪk/' },
+            { word: 'purpose', explanation: '目的', sentence: 'What is the purpose of your visit?', ipa: '/ˈpɝː.pəs/' },
+            { word: 'raise', explanation: '舉起；撫養；募款', sentence: 'Please raise your hand if you have a question.', ipa: '/reɪz/' },
+            { word: 'reach', explanation: '到達', sentence: 'We will reach the city in an hour.', ipa: '/riːtʃ/' },
+            { word: 'reason', explanation: '原因', sentence: 'What is the reason for your decision?', ipa: '/ˈriː.zən/' },
+            { word: 'record', explanation: '記錄', sentence: 'She holds the world record for the long jump.', ipa: '/ˈrek.ɚd/' },
+            // 286-300
+            { word: 'victory', explanation: '勝利', sentence: 'The team celebrated their victory.', ipa: '/ˈvɪk.tɚ.i/' },
+            { word: 'view', explanation: '看法；景色', sentence: 'The view from the top is amazing.', ipa: '/vjuː/' },
+            { word: 'village', explanation: '村莊', sentence: 'She grew up in a small village.', ipa: '/ˈvɪl.ɪdʒ/' },
+            { word: 'violent', explanation: '暴力的', sentence: 'The movie was too violent for children.', ipa: '/ˈvaɪə.lənt/' },
+            { word: 'volunteer', explanation: '志願者', sentence: 'He works as a volunteer at the hospital.', ipa: '/ˌvɑː.lənˈtɪr/' },
+            { word: 'warn', explanation: '警告', sentence: 'The sign warns people of the danger.', ipa: '/wɔːrn/' },
+            { word: 'weak', explanation: '虛弱的', sentence: 'He felt weak after the illness.', ipa: '/wiːk/' },
+            { word: 'wealth', explanation: '財富', sentence: 'Health is more important than wealth.', ipa: '/welθ/' },
+            { word: 'weapon', explanation: '武器', sentence: 'A knife can be a dangerous weapon.', ipa: '/ˈwep.ən/' },
+            { word: 'weigh', explanation: '稱重；重達', sentence: 'How much do you weigh?', ipa: '/weɪ/' },
+            { word: 'whisper', explanation: '低語', sentence: 'She leaned over to whisper something in his ear.', ipa: '/ˈwɪs.pɚ/' },
+            { word: 'willing', explanation: '願意的', sentence: 'Are you willing to help us?', ipa: '/ˈwɪl.ɪŋ/' },
+            { word: 'wonder', explanation: '想知道；驚奇', sentence: 'I wonder what will happen next.', ipa: '/ˈwʌn.dɚ/' },
+            { word: 'worth', explanation: '值得的', sentence: 'This old coin is worth a lot of money.', ipa: '/wɝːθ/' },
+            { word: 'youth', explanation: '青春；青年', sentence: 'He was a famous actor in his youth.', ipa: '/juːθ/' }
+        ];
+        
+        // --- DOM 操作 ---
+        const contentContainer = document.getElementById('content-container');
+
+        // --- 函數定義 ---
+
+        /**
+         * 格式化日期物件為 YYYY/MM/DD 字串
+         * @param {Date} date - 日期物件
+         * @returns {string} 格式化後的日期字串
+         */
+        function formatDate(date) {
+            const year = date.getFullYear();
+            // getMonth() 回傳 0-11，所以要加 1
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}/${month}/${day}`;
+        }
+
+        /**
+         * 頁面載入後，將單字資料分段填入頁面
+         */
+        function populateContent() {
+            // 清空現有內容
+            contentContainer.innerHTML = '';
+            const chunkSize = 15;
+            // 設定起始日期 (月份是 0-indexed, 7 代表 8 月)
+            let startDate = new Date(2025, 7, 31); 
+
+            // 將單字列表分成每組15個的區塊
+            for (let i = 0; i < vocabularyList.length; i += chunkSize) {
+                const chunk = vocabularyList.slice(i, i + chunkSize);
+                const sectionNumberStart = i + 1;
+                const sectionNumberEnd = i + chunk.length;
+
+                // 計算當週的結束日期 (開始日期 + 6 天)
+                const endDate = new Date(startDate);
+                endDate.setDate(startDate.getDate() + 6);
+
+                // 格式化日期字串
+                const formattedStartDate = formatDate(startDate);
+                const formattedEndDate = formatDate(endDate);
+
+                // 創建段落標題，並加入日期週期
+                const sectionTitle = document.createElement('h2');
+                sectionTitle.className = 'text-2xl font-bold text-gray-800 mb-4';
+                sectionTitle.textContent = `單字列表 (${sectionNumberStart} - ${sectionNumberEnd}) | ${formattedStartDate} - ${formattedEndDate}`;
+                contentContainer.appendChild(sectionTitle);
+
+                // 創建表格容器
+                const tableContainer = document.createElement('div');
+                tableContainer.className = 'bg-white rounded-xl shadow-lg overflow-hidden';
+                
+                const tableWrapper = document.createElement('div');
+                tableWrapper.className = 'overflow-x-auto';
+
+                // 創建表格
+                const table = document.createElement('table');
+                table.className = 'w-full text-sm text-left text-gray-500';
+
+                // 創建表頭
+                table.innerHTML = `
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">單字</th>
+                            <th scope="col" class="px-6 py-3">解釋</th>
+                            <th scope="col" class="px-6 py-3">例句</th>
+                            <th scope="col" class="px-6 py-3 text-center">發音 (IPA)</th>
+                        </tr>
+                    </thead>
+                `;
+
+                // 創建表格主體
+                const tableBody = document.createElement('tbody');
+                chunk.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.className = 'bg-white border-b hover:bg-gray-50';
+
+                    row.innerHTML = `
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">${item.word}</td>
+                        <td class="px-6 py-4">${item.explanation}</td>
+                        <td class="px-6 py-4">${item.sentence}</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center justify-center space-x-2">
+                                <span>${item.ipa}</span>
+                                <button class="speak-btn text-blue-500 hover:text-blue-700 transition-colors duration-200" data-word="${item.word}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10 3.12a1 1 0 00-1 .997v11.766a1 1 0 001.52.862l7.07-5.883a1 1 0 000-1.724l-7.07-5.883A1 1 0 0010 3.12zM4.5 5.5a1 1 0 00-1 1v7a1 1 0 001 1h2a1 1 0 001-1v-7a1 1 0 00-1-1h-2z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+
+                table.appendChild(tableBody);
+                tableWrapper.appendChild(table);
+                tableContainer.appendChild(tableWrapper);
+                contentContainer.appendChild(tableContainer);
+
+                // 更新下一週的開始日期 (目前日期 + 7 天)
+                startDate.setDate(startDate.getDate() + 7);
+            }
+             
+            // 為所有發音按鈕添加事件監聽器 (事件委派)
+            contentContainer.addEventListener('click', function(event) {
+                const button = event.target.closest('.speak-btn');
+                if (button) {
+                    const wordToSpeak = button.dataset.word;
+                    speak(wordToSpeak);
+                }
+            });
+        }
+
+        /**
+         * 使用 Web Speech API 播放指定的文字
+         * @param {string} text - 要播放的文字
+         */
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 1;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                console.error('您的瀏覽器不支援語音合成功能。');
+            }
+        }
+
+        // --- 事件監聽 ---
+        // 當 DOM 載入完成後，執行 populateContent 函數
+        document.addEventListener('DOMContentLoaded', populateContent);
+    </script>
+</body>
+</html>
